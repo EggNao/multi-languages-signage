@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "fix": "npm-run-all -p fix:*",
-    "fix: lint": "next lint",
+    "fix:lint": "next lint",
     "fix:prettier": "prettier --write ."
   },
   "dependencies": {
