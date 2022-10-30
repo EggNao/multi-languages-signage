@@ -11,6 +11,8 @@
     "fix:prettier": "prettier --write ."
   },
   "dependencies": {
+    "@contentful/rich-text-react-renderer": "^15.12.1",
+    "contentful": "^9.2.9",
     "next": "13.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"
