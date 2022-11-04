@@ -3,7 +3,18 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
+import client from '../plugins/contentful'
+import { EntryCollection } from 'contentful'
+
 const Home: NextPage = () => {
+  const a = async () => {
+    await client.getEntries({
+      content_type: 'english',
+    }).then(entries => {
+      console.log(entries.items); // blogPostのエントリー配列
+    });
+  }
+  a()
   return (
     <div className={styles.container}>
       <Head>
