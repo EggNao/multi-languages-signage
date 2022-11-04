@@ -6,15 +6,31 @@ import styles from '../styles/Home.module.css'
 import client from '../plugins/contentful'
 import { EntryCollection } from 'contentful'
 
+import { firestore } from '../plugins/firebase'
+import { collection, doc, getDocs, query } from 'firebase/firestore'
+
 const Home: NextPage = () => {
   const a = async () => {
-    await client.getEntries({
-      content_type: 'english',
-    }).then(entries => {
-      console.log(entries.items); // blogPostのエントリー配列
-    });
+    await client
+      .getEntries({
+        content_type: 'english',
+      })
+      .then((entries) => {
+        console.log(entries.items) // blogPostのエントリー配列
+      })
   }
   a()
+  const b = async () => {
+    const q = query(collection(firestore, 'tld'))
+
+    const querySnapshot = await getDocs(q)
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, ' => ', doc.data())
+    })
+  }
+  b()
+
   return (
     <div className={styles.container}>
       <Head>
