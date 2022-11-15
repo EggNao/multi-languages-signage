@@ -6,9 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "fix": "npm-run-all -p fix:*",
+    "fix:lint": "next lint",
+    "fix:prettier": "prettier --write ."
   },
   "dependencies": {
+    "@contentful/rich-text-react-renderer": "^15.12.1",
+    "contentful": "^9.2.9",
     "next": "13.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"
@@ -19,6 +23,11 @@
     "@types/react-dom": "18.0.8",
     "eslint": "8.26.0",
     "eslint-config-next": "13.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "firebase": "^9.13.0",
+    "firebase-admin": "^11.2.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.7.1",
     "typescript": "4.8.4"
   }
 }
