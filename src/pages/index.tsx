@@ -4,6 +4,9 @@ import Image from 'next/image'
 import { client } from '../plugins/microcms'
 import styles from '../styles/Home.module.css'
 import { ContentsType } from '../types/microcms'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Autoplay, Pagination } from 'swiper'
+import 'swiper/css';
 
 type HomeProps = {
   data: ContentsType
@@ -11,16 +14,25 @@ type HomeProps = {
 
 const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ data }) => {
   console.log(data[0].content.url)
-  const imgSrc = data[0].content.url
   return (
-    <div>
-        {/* {data.map((doc: ContentsType) => {
-          console.log(doc)
-          return <Image src={doc.content.url} width={720} height={405} alt={''} />
-        })} */}
-        <Image src={imgSrc} width={720} height={405} alt={''} />
-        <Image src={imgSrc} width={720} height={405} alt={''} />
-    </div>
+    <Swiper
+      spaceBetween={50}
+      slidesPerView={'auto'}
+      centeredSlides={true}
+      autoplay={{
+        delay: 5000,
+        disableOnInteraction: false,
+      }}
+      modules={[Autoplay]}
+    >
+      {data.map((doc: ContentsType, index: number) => {
+        return (
+          <SwiperSlide key={index}>
+            <Image src={doc.content.url} width={720} height={405} alt={''} />
+          </SwiperSlide>
+        )
+      })}
+    </Swiper>
   )
 }
 
