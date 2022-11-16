@@ -6,10 +6,26 @@ import { Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { client } from '../plugins/microcms'
 import { ContentsType } from '../types/microcms'
+import { useEffect } from 'react'
+import { firestore } from '@/plugins/firebase'
+import { collection, limit, onSnapshot, orderBy, query } from 'firebase/firestore'
 
 const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ data }) => {
-  console.log(data)
-  console.log(data[0].content.url)
+  useEffect(() => {
+    const q = query(collection(firestore, 'tld'), orderBy('created_at', 'desc'), limit(1))
+    onSnapshot(
+      q,
+      (querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          console.log(doc)
+        })
+      },
+      (e) => {
+        console.log(e)
+      },
+    )
+  }, [])
+
   return (
     <Swiper
       spaceBetween={50}
