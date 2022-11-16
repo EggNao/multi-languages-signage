@@ -1,8 +1,14 @@
 {
-  "extends": ["next/core-web-vitals", "plugin:tailwindcss/recommended"],
-  "plugins": ["prettier"],
-  "ignorePatterns": ["*.config.js"],
-  "rules": {
-    "prettier/prettier": "error"
-  }
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "import", "sort", "eslint-plugin-prettier"],
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/recommended",
+    "plugin:sort/recommended",
+    "plugin:import/warnings",
+    "plugin:tailwindcss/recommended",
+    "eslint-config-prettier"
+  ],
+  "ignorePatterns": ["*.config.js"]
 }
