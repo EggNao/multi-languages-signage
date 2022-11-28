@@ -1,4 +1,4 @@
-export type countryType =
+export type CountryType =
   | 'jp' // 日本
   | 'kr' // 韓国
   | 'au' // オーストラリア
@@ -7,3 +7,10 @@ export type countryType =
   | 'in' // インド
   | 'th' // タイ
   | 'tw' // 台湾
+  | 'uk' // イギリス
+
+export type GetTLDType = {
+  [s: string]: number
+}
+
+export type LanguageType = 'japanese' | 'english'
