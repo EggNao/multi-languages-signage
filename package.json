@@ -8,7 +8,9 @@
     "start": "next start",
     "fix": "npm-run-all -p fix:*",
     "fix:lint": "next lint",
-    "fix:prettier": "prettier --write ."
+    "fix:prettier": "prettier --write .",
+    "export": "next export",
+    "deploy": "yarn build && yarn export && firebase deploy"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^15.12.1",
