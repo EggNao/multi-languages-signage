@@ -6,11 +6,12 @@ export const client = createClient({
   serviceDomain: process.env.NEXT_PUBLIC_MICROCMS_SERVICE_DOMAIN ?? '',
 })
 
-export const getMicroCMSContents = async(language: 'japanese' | 'english'): Promise<ContentsType[]> => {
+export const getMicroCMSContents = async (
+  language: 'japanese' | 'english',
+): Promise<ContentsType[]> => {
   const data = await client.get({
     endpoint: 'contents',
-    queries: { filters: `language[contains]${language}` }
+    queries: { filters: `language[contains]${language}` },
   })
   return data.contents
 }
-

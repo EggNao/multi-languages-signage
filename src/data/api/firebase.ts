@@ -31,11 +31,9 @@ export const filterCctld = (tldData: GetTLDType) => {
   })
   console.log('englishTld', englishTld)
   console.log('japaneseTld', japaneseTld)
-  if (8 * englishTld <= japaneseTld){
+  if (8 * englishTld <= japaneseTld) {
     return 'japanese'
-  }
-  else{
+  } else {
     return 'english'
   }
-
 }
