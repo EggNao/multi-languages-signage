@@ -3,40 +3,20 @@ import 'swiper/swiper.min.css'
 import { collection, limit, onSnapshot, orderBy, query } from 'firebase/firestore'
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
 import Image from 'next/image'
-import { useEffect, useLayoutEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { filterCctld } from '@/data/api/firebase'
 import { firestore } from '@/plugins/firebase'
 import { LanguageType } from '@/types/firestore'
+import wifiImg from 'public/wifi.png'
 import { client, getMicroCMSContents } from '../plugins/microcms'
+
 import { ContentsType } from '../types/microcms'
 
 const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ data }) => {
   const [languageFlag, setLanguageFlag] = useState<LanguageType>('japanese')
-  const [englishContents, setEnglishContents] = useState<ContentsType[]>([])
-  const [japaneseContents, setJapaneseContents] = useState<ContentsType[]>([])
   const [contents, setContents] = useState<ContentsType[]>([])
-
-  // useEffect(() => {
-  //   const f = async() => {
-  //     const a = await getMicroCMSContents()
-  //     setContents(a)
-  //   }
-  //   f()
-  //   contents?.forEach((content: ContentsType) => {
-  //     console.log(content)
-  //     if (content.language == ['japanese']) {
-  //       const japaneseContents_cp = japaneseContents
-  //       japaneseContents_cp.push(content)
-  //       setJapaneseContents(japaneseContents_cp)
-  //     } else {
-  //       const englishContents_cp = englishContents
-  //       englishContents_cp.push(content)
-  //       setEnglishContents(englishContents_cp)
-  //     }
-  //   })
-  // })
 
   // firestoreにデータが追加されたらスナップショット
   useEffect(() => {
@@ -62,48 +42,62 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ data }
   }, [])
 
   //マウント前に表示するデータ取得
-  useLayoutEffect(() => {
+  useEffect(() => {
     const f = async () => {
       const contents_cp = await getMicroCMSContents(languageFlag)
       setContents(contents_cp)
+      console.log(contents_cp)
     }
     f()
-  })
+  }, [])
 
   // 言語情報の切り替えフラグ
   useEffect(() => {
     const f = async () => {
       const contents_cp = await getMicroCMSContents(languageFlag)
       setContents(contents_cp)
+      console.log(contents_cp)
     }
     f()
   }, [languageFlag])
 
   return (
-    <Swiper
-      spaceBetween={50}
-      slidesPerView={'auto'}
-      centeredSlides={true}
-      autoplay={{
-        delay: 5000,
-        disableOnInteraction: false,
-      }}
-      modules={[Autoplay]}
-    >
-      {contents.map((doc: ContentsType, index: number) => {
-        return (
-          <SwiperSlide key={index}>
-            <Image
-              className={'h-screen w-screen'}
-              src={doc.content.url}
-              width={720}
-              height={405}
-              alt={''}
-            />
-          </SwiperSlide>
-        )
-      })}
-    </Swiper>
+    <div className={'bg-slate-50 pt-6 pl-6'}>
+      <div className={'text-4xl'}>
+        {languageFlag === 'english' ? 'Event Information' : '学内イベント情報'}
+      </div>
+      <div className={'pt-4'}>
+        <Swiper
+          className={'relative'}
+          spaceBetween={50}
+          slidesPerView={'auto'}
+          centeredSlides={true}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+          }}
+          modules={[Autoplay]}
+        >
+          {contents.map((doc: ContentsType, index: number) => {
+            return (
+              <SwiperSlide key={index}>
+                <Image
+                  className={'w-5/6'}
+                  src={doc.content.url}
+                  width={720}
+                  height={405}
+                  alt={''}
+                />
+              </SwiperSlide>
+            )
+          })}
+          <div className={'absolute bottom-12 right-5 text-center text-2xl font-medium'}>
+            Free Wi-Fi
+            <Image src={wifiImg} alt=''></Image>
+          </div>
+        </Swiper>
+      </div>
+    </div>
   )
 }
 
