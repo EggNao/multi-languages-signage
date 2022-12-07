@@ -62,11 +62,11 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ data }
   }, [languageFlag])
 
   return (
-    <div className={'bg-slate-50 pt-6 pl-6'}>
+    <div className={'h-screen w-screen bg-slate-50 pt-8 pl-8'}>
       <div className={'text-4xl'}>
         {languageFlag === 'english' ? 'Event Information' : '学内イベント情報'}
       </div>
-      <div className={'pt-4'}>
+      <div className={'pt-6'}>
         <Swiper
           className={'relative'}
           spaceBetween={50}
@@ -82,7 +82,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ data }
             return (
               <SwiperSlide key={index}>
                 <Image
-                  className={'w-5/6'}
+                  className={'w-10/12'}
                   src={doc.content.url}
                   width={720}
                   height={405}
@@ -91,9 +91,9 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ data }
               </SwiperSlide>
             )
           })}
-          <div className={'absolute bottom-12 right-5 text-center text-2xl font-medium'}>
+          <div className={'absolute bottom-12 right-6 text-center text-2xl font-medium'}>
             Free Wi-Fi
-            <Image src={wifiImg} alt=''></Image>
+            <Image src={wifiImg} alt='' height={200} width={200}></Image>
           </div>
         </Swiper>
       </div>
